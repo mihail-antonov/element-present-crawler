@@ -7,6 +7,7 @@
   "element_selector": "",
   "messages": {
     "error": "Error trying to reach page %error%",
+    "next_check": "Next check in %mins% mins.",
     "retry_check": "Retrying in %mins% mins.",
     "element_found": "Element FOUND!",
     "element_not_found": "Element NOT found.",
