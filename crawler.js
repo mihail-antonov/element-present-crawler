@@ -1,5 +1,8 @@
 const config = require('./config.json');
-const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer-extra');
+const StealthPlugin = require('puppeteer-extra-plugin-stealth');
+
+puppeteer.use(StealthPlugin());
 
 const CHECK_INTERVAL = config.check_mins * 60 * 1000;
 const RETRY_INTERVAL = config.retry_mins * 60 * 1000;
@@ -30,6 +33,8 @@ const checkStock = async () => {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
 
+    await page.setUserAgent(config.user_agent);
+    await page.setExtraHTTPHeaders(config.http_headers);
     await page.goto(config.website_url, {waitUntil: 'domcontentloaded'});
 
     const elementPresent = await page.$(config.element_selector) !== null;

@@ -1,16 +1,21 @@
 {
-  "loop": true,
+  "loop": false,
   "retry_mins": 5,
-  "check_mins": 60,
-  "display_mins": 20,
+  "check_mins": 0,
+  "display_mins": 0,
   "website_url": "",
   "element_selector": "",
   "messages": {
     "error": "Error trying to reach page %error%",
     "next_check": "Next check in %mins% mins.",
     "retry_check": "Retrying in %mins% mins.",
-    "element_found": "Element FOUND!",
-    "element_not_found": "Element NOT found.",
+    "element_found": "Product in STOCK!",
+    "element_not_found": "Product NOT in stock.",
     "empty": "Please fill website_url and element_selector in config file."
+  },
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36",
+  "http_headers": {
+    "accept-language": "en-US,en;q=0.9",
+    "accept-encoding": "gzip, deflate, br"
   }
 }
