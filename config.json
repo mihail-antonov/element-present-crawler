@@ -3,6 +3,13 @@
   "retry_mins": 5,
   "check_mins": 60,
   "display_mins": 20,
-  "product_url": "https://gplay.bg/asrock-radeon-rx-7900-xtx-taichi-white-24gb-oc",
-  "element_selector": ".product-status .fa-check"
+  "website_url": "",
+  "element_selector": "",
+  "messages": {
+    "error": "Error trying to reach page %error%",
+    "retry_check": "Retrying in %mins% mins.",
+    "element_found": "Element FOUND!",
+    "element_not_found": "Element NOT found.",
+    "empty": "Please fill website_url and element_selector in config file."
+  }
 }

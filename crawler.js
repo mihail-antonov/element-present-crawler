@@ -17,10 +17,7 @@ const displayInterval = () => {
 
     timeRemaining -= config.display_mins;
 
-    if (timeRemaining > 0) {
-
-      logMessage(`Next check in ${timeRemaining > 1 ? `${timeRemaining} mins` : `${timeRemaining} min`}.`);
-    }
+    timeRemaining > 0 && logMessage(config.messages.next_check.replace('%mins%', timeRemaining));
 
     timeRemaining <= 0 && clearInterval(interval);
   }, DISPLAY_INTERVAL);
@@ -33,15 +30,15 @@ const checkStock = async () => {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
 
-    await page.goto(config.product_url, {waitUntil: 'domcontentloaded'});
+    await page.goto(config.website_url, {waitUntil: 'domcontentloaded'});
 
     const elementPresent = await page.$(config.element_selector) !== null;
 
     if (elementPresent) {
-      logMessage('Product IN STOCK.');
+      logMessage(config.messages.element_found);
       await browser.close();
     } else {
-      logMessage('Product NOT in stock.');
+      logMessage(config.messages.element_not_found);
       await browser.close();
 
       if (config.loop && config.check_mins) {
@@ -53,15 +50,12 @@ const checkStock = async () => {
     }
   } catch (error) {
 
-    logMessage(`Error trying to reach page: ${error}`);
+    logMessage(config.messages.error.replace('%error%', error));
 
-    if (config.retry_mins) {
-
-      logMessage(`Retrying in ${config.retry_mins > 1 ? `${config.retry_mins} mins` : `${config.retry_mins} min`}.`);
-    }
+    config.retry_mins && logMessage(config.messages.retry_check.replace('%mins%', config.retry_mins));
 
     setTimeout(checkStock, RETRY_INTERVAL);
   }
 }
 
-config.product_url && config.element_selector ? checkStock() : logMessage('Please enter product_url and element');
+config.website_url && config.element_selector ? checkStock() : logMessage(config.messages.empty);
